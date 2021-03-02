@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 //Ter acesso ao model de Eventos para acessar o banco
 use App\Models\Event;
 
+//Ter acesso ao model de Usuario
+use App\Models\User;
+
 class EventController extends Controller
 {
     public function index(){
@@ -55,6 +58,10 @@ class EventController extends Controller
             $event->image = $imageName;
         }
 
+        //Pegar o usuario logado
+        $user = auth()->user();
+        $event->user_id = $user->id; //propriedade id do usuario logado
+
         $event->save();
 
         //redireciona o usuario para a index
@@ -63,6 +70,9 @@ class EventController extends Controller
 
     public function show($id){
             $event = Event::findOrFail($id);
-            return view('events.show',['event'=>$event]);
+
+            $eventOwner = User::where('id', $event->user_id)->first()->toArray(); //id = $user_id
+
+            return view('events.show',['event'=>$event, 'eventOwner'=>$eventOwner]);
     }
 }

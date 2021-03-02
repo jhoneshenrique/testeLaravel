@@ -19,7 +19,7 @@ use App\Http\Controllers\EventController;
 Route::get('/', [EventController::class,'index']);
 
 //Rota de evento - criate mostrar o formulario de criar com registro no banco
-Route::get('/events/create', [EventController::class,'create']);
+Route::get('/events/create', [EventController::class,'create'])->middleware('auth');
 
 //Rota de evento evento especifico - show mostrar um dado especifico
 Route::get('/events/{id}', [EventController::class,'show']);

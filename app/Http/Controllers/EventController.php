@@ -75,4 +75,20 @@ class EventController extends Controller
 
             return view('events.show',['event'=>$event, 'eventOwner'=>$eventOwner]);
     }
+
+    public function dashboard(){
+        //Pega usuário autenticado
+        $user = auth()->user();
+        
+        //Pega a propriedade do módel que foi criada que pega todos os eventos de um determiando usuário
+        $events = $user->events;
+
+        return view('events.dashboard',['events'=>$events]);
+    }
+
+    public function destroy($id){
+        Event::findOrFail($id)->delete();
+
+        return redirect('dashboard')->with('msg','Evento excluido com sucesso!');
+    }
 }

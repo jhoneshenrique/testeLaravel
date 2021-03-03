@@ -31,6 +31,12 @@ Route::get('/contact', function () {
     return view('contact');
 });
 
+//Roda do dashboard para o Controller
+Route::get('/dashboard', [EventController::class,'dashboard'])->middleware('auth');
+
+//Rota para deletar um evento
+Route::delete('/events/{id}',[EventController::class,'destroy']);
+
 Route::get('/produtos', function () {
 
     $busca = request('search');
@@ -41,7 +47,3 @@ Route::get('/produtos', function () {
 Route::get('/produtos_teste/{id?}', function ($id = null) {
     return view('product',['id' => $id]);
 });
-
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');

@@ -27,6 +27,12 @@ Route::get('/events/{id}', [EventController::class,'show']);
 //Rota para criar evento - store cadastrar dados no banco
 Route::post('/events',[EventController::class,'store']);
 
+//Rota para exibir os dados para serem editados
+Route::get('/events/edit/{id}',[EventController::class,'edit'])->middleware('auth');
+
+//Route para update
+Route::put('/events/update/{id}',[EventController::class,'update'])->middleware('auth');
+
 Route::get('/contact', function () {
     return view('contact');
 });
@@ -35,7 +41,7 @@ Route::get('/contact', function () {
 Route::get('/dashboard', [EventController::class,'dashboard'])->middleware('auth');
 
 //Rota para deletar um evento
-Route::delete('/events/{id}',[EventController::class,'destroy']);
+Route::delete('/events/{id}',[EventController::class,'destroy'])->middleware('auth');
 
 Route::get('/produtos', function () {
 

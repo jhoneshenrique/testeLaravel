@@ -59,7 +59,13 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
+    //O usuario possui muitos eventos
     public function events(){
         return $this->hasMany('App\Models\Event');
+    }
+
+    //O usuário participa de muitos eventos
+    public function eventsAsParticipant() {
+        return $this->belongsToMany('App\Models\Event');
     }
 }

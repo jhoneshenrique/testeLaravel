@@ -43,6 +43,12 @@ Route::get('/dashboard', [EventController::class,'dashboard'])->middleware('auth
 //Rota para deletar um evento
 Route::delete('/events/{id}',[EventController::class,'destroy'])->middleware('auth');
 
+//Rota para confirmar presença em um evento
+Route::post('/events/join/{id}', [EventController::class, 'joinEvent'])->middleware('auth');
+
+//Rota para deletar presença em um evento
+Route::delete('/events/leave/{id}', [EventController::class, 'leaveEvent'])->middleware('auth');
+
 Route::get('/produtos', function () {
 
     $busca = request('search');
